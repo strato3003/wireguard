@@ -1,8 +1,24 @@
 # mise en place server wireguard sous kube
+
 ## selon ce lien :
 cf https://medium.com/@s.hameedakmal/wireguard-vpn-in-a-kubernetes-cluster-e306fdc69731
+
 ## details d'implementation
 
+### conservation des peers avec leur config grace au PVC 
+  - ainsi la modification de deploy.yaml n'entraine pas ka regeneration des cles du server ni de chaque PEER
+  - en revanche, les cles ssh necessaires a la copie vers 10.13.13.1:23422 changent et le ssh-copy-id doit etre refait
+### ajout des recettes Kube dans un nouveau repo par repertoire, ici "wireguard"
+```shell
+cd /Users/jnmartineau/eyesea-saison2/sail.eyeseateam.eu/wireguard
+git init
+git config --global init.defaultBranch main
+git remote add origin https://github.com/strato3003/wireguard.git
+git branch -M main
+git add *
+git commit -m 'first'
+git push -u origin main
+```
 ### create a new client config from server
   - edit deploy and modify env PEERS to add clients...
 ```shell
@@ -14,7 +30,7 @@ kubectl get deploy wireguard -o json |jq '.spec.template.spec.containers[].env'
   },
   {
     "name": "PEERS",
-    "value": "pican,pi64"
+    "value": "32"
   },
   {
     "name": "PUID",
