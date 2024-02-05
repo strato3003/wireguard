@@ -76,6 +76,14 @@ access on starlink router : https://localhost:20206/cgi-bin/luci/admin/services/
 
 # TIMELAPSE
 ## capture timelapse depuis RPI Zero 2w via raspstill puis ssh
+  - le RPI Zero est cient VPN wireguard :
+```shell
+pi@raspvid:~ $ ip address show dev wg0
+8: wg0: <POINTOPOINT,NOARP,UP,LOWER_UP> mtu 1420 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/none
+    inet 10.13.13.4/32 scope global wg0
+       valid_lft forever preferred_lft foreve
+```
 ```shell
 pi@raspvid:~ $ sudo cat /etc/systemd/system/timelapse.service
 [Unit]
